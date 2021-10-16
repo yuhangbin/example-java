@@ -1,1 +1,1 @@
-## Exmaple for Java
+## Example for Java

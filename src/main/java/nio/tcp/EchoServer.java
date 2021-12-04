@@ -2,7 +2,6 @@ package nio.tcp;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.nio.charset.StandardCharsets;
@@ -67,6 +66,7 @@ public class EchoServer {
         client.read(byteBuffer);
         byteBuffer.flip();
         byte[] bytes = new byte[byteBuffer.limit()];
+        // if client message is empty then close client.
         if (bytes.length == 0) {
             client.close();
             return;

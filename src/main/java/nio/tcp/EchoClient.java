@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /**
+ * Can't send empty message to server.(Implement by OS)
  * @author yuhangbin
  * @date 2021/6/27
  **/
@@ -39,15 +40,15 @@ public class EchoClient {
 
     public static void main(String[] args) throws Exception{
         EchoClient echoClient = new EchoClient("localhost", 54321);
-        EchoClient echoClient1 = new EchoClient("localhost", 54321);
+//        EchoClient echoClient1 = new EchoClient("localhost", 54321);
         Scanner scanner = new Scanner(System.in);
         String message;
         while ((message = scanner.nextLine()) != null) {
-            if (message.contains("2")){
-                echoClient1.send(message);
-            }
+//            if (message.contains("2")){
+//                echoClient1.send(message);
+//            }
             if (message.contains("1")) {
-                echoClient.send(message);
+                echoClient.send("");
             }
         }
     }

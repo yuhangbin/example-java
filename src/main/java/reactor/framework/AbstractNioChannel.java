@@ -27,9 +27,11 @@ public abstract class AbstractNioChannel {
         this.eventHandler = eventHandler;
     }
 
-    public Channel getJavaChannel() {
+    public SelectableChannel getJavaChannel() {
         return this.channel;
     }
+
+    public abstract int getInterestOps();
 
     public abstract ByteBuffer read(SelectionKey key) throws IOException;
 

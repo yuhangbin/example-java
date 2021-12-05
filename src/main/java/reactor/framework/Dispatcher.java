@@ -8,7 +8,7 @@ import java.nio.channels.SelectionKey;
  **/
 public interface Dispatcher {
 
-    void handleEvent(AbstractNioChannel channel, SelectionKey key);
+    void handleEvent(AbstractNioChannel channel, Object clientMessage, SelectionKey key);
 
     Dispatcher registerHandler(EventEnum eventEnum, EventHandler eventHandler);
 

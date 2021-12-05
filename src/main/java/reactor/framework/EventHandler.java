@@ -1,5 +1,6 @@
 package reactor.framework;
 
+import java.io.IOException;
 import java.nio.channels.SelectionKey;
 
 /**
@@ -9,5 +10,5 @@ import java.nio.channels.SelectionKey;
  **/
 public interface EventHandler {
 
-    void handleEvent(AbstractNioChannel channel, SelectionKey selectionKey);
+    void handleEvent(AbstractNioChannel channel,Object clientMessage, SelectionKey selectionKey);
 }

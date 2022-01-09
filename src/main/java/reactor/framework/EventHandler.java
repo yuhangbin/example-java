@@ -1,6 +1,5 @@
 package reactor.framework;
 
-import java.io.IOException;
 import java.nio.channels.SelectionKey;
 
 /**

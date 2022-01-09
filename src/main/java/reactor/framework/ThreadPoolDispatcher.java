@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 public class ThreadPoolDispatcher implements Dispatcher{
 
     private ThreadPoolExecutor executor;
-    private Map<EventEnum, EventHandler> handlerMap = new HashMap<>();
 
     public ThreadPoolDispatcher(int nThread) {
         this.executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(nThread);
@@ -27,23 +26,15 @@ public class ThreadPoolDispatcher implements Dispatcher{
         });
     }
 
-    @Override
-    public Dispatcher registerHandler(EventEnum eventEnum, EventHandler eventHandler) {
-        handlerMap.put(eventEnum, eventHandler);
-        return this;
-    }
 
-    @Override
-    public Dispatcher removeHandler(EventEnum eventEnum, EventHandler eventHandler) {
-        handlerMap.remove(eventEnum);
-        return this;
-    }
 
     @Override
     public void stop() {
         try {
             executor.shutdown();
-            executor.awaitTermination(5, TimeUnit.SECONDS);
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
         }catch (Exception e) {
             e.printStackTrace();
         }

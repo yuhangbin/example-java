@@ -27,11 +27,15 @@ public class LoggingHandler implements EventHandler {
     }
 
     private void doLogging(AbstractNioChannel channel, SelectionKey key, ByteBuffer message) {
-        log.info(new String(message.array(), StandardCharsets.UTF_8));
+        message.flip();
+        byte[] clientMessage = new byte[message.limit()];
+        message.get(clientMessage);
+        log.info(new String(clientMessage, StandardCharsets.UTF_8));
     }
 
     private void reply(AbstractNioChannel channel, SelectionKey key) {
         try {
+            log.info("reply : {}", new String(ACK));
             channel.write(ByteBuffer.wrap(ACK), key);
         }catch (Exception e){
             e.printStackTrace();

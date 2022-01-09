@@ -1,13 +1,12 @@
 package reactor.framework;
 
 import java.io.IOException;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
+import java.nio.channels.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +20,7 @@ public class Reactor {
     // Synchronous Event De-Multiplexer
     private Selector selector;
     // executor select() and dispatcher event
-    private ThreadPoolExecutor bossExecutor = (ThreadPoolExecutor) Executors.newSingleThreadExecutor();
+    private ThreadPoolExecutor bossExecutor = new ThreadPoolExecutor(1, 1, 1, TimeUnit.HOURS, new LinkedBlockingQueue<>(1000));
 
     private List<AbstractNioChannel> channels = new LinkedList<>();
 
@@ -41,7 +40,9 @@ public class Reactor {
     public void stop() {
         try {
             bossExecutor.shutdown();
-            bossExecutor.awaitTermination(5, TimeUnit.SECONDS);
+            if (!bossExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
+                bossExecutor.shutdownNow();
+            }
             this.dispatcher.stop();
         }catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +51,9 @@ public class Reactor {
     }
 
     public Reactor registerChannel(AbstractNioChannel channel) throws IOException {
-        SelectionKey key = channel.getJavaChannel().register(selector, channel.getInterestOps());
+        channel.getJavaChannel().configureBlocking(false);
+        channel.bind();
+        SelectionKey key = channel.getJavaChannel().register(selector, SelectionKey.OP_ACCEPT);
         key.attach(channel);
         channel.setReactor(this);
         this.channels.add(channel);
@@ -74,9 +77,20 @@ public class Reactor {
         }
     }
 
-    private void processKey(SelectionKey key) {
-        //todo
+    private void processKey(SelectionKey key) throws IOException {
+        if (key.isAcceptable()) {
+            System.out.println("key is acceptable");
+            ServerSocketChannel serverSocketChannel = (ServerSocketChannel)key.channel();
+            SocketChannel clientChannel = serverSocketChannel.accept();
+            clientChannel.configureBlocking(false);
+            SelectionKey clientKey = clientChannel.register(selector, SelectionKey.OP_READ);
+            clientKey.attach(key.attachment());
+        }else if (key.isReadable()) {
+            System.out.println("key is readable");
+            dispatcher.handleEvent((AbstractNioChannel)key.attachment(), ((AbstractNioChannel)key.attachment()).read(key), key);
+        }else if (key.isWritable()) {
+            System.out.println("key is writable");
+        }
     }
-
 
 }

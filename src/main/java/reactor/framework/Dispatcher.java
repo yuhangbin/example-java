@@ -10,9 +10,5 @@ public interface Dispatcher {
 
     void handleEvent(AbstractNioChannel channel, Object clientMessage, SelectionKey key);
 
-    Dispatcher registerHandler(EventEnum eventEnum, EventHandler eventHandler);
-
-    Dispatcher removeHandler(EventEnum eventEnum, EventHandler eventHandler);
-
     void stop();
 }

@@ -1,6 +1,8 @@
 package reactor.framework;
 
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -13,6 +15,7 @@ import java.nio.channels.SocketChannel;
  * @author yuhangbin
  * @date 2021/12/5
  **/
+@Slf4j
 public class ServerNioChannel extends AbstractNioChannel{
 
     private final int port;
@@ -37,7 +40,6 @@ public class ServerNioChannel extends AbstractNioChannel{
         ByteBuffer message = ByteBuffer.allocate(1024);
         // todo if buffer capacity not enough
         int read = clientSocket.read(message);
-        message.flip();
         if (read == -1) {
             throw new IOException("Socket closed");
         }
@@ -52,6 +54,7 @@ public class ServerNioChannel extends AbstractNioChannel{
 
     @Override
     public void bind() throws IOException {
+        log.info("server listening on port:{} ", port);
         getJavaChannel().socket().bind(new InetSocketAddress(InetAddress.getLocalHost(), port));
     }
 }

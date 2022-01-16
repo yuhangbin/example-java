@@ -39,6 +39,7 @@
                     <protocExecutable>/usr/local/bin/protoc</protocExecutable>
                     <protoSourceRoot>${basedir}/src/main/java/com/yu/protobuf/proto/</protoSourceRoot>
                     <outputDirectory>${basedir}/src/main/java/</outputDirectory>
+                    <clearOutputDirectory>false</clearOutputDirectory>
                 </configuration>
                 <executions>
                     <execution>

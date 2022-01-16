@@ -13,6 +13,7 @@
         <module>reactor</module>
         <module>java-native-server</module>
         <module>java-example</module>
+        <module>maven</module>
     </modules>
 
     <properties>

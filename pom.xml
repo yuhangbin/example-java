@@ -14,7 +14,6 @@
         <module>java-native-server</module>
         <module>java-example</module>
         <module>maven</module>
-        <module>maven-plugin</module>
     </modules>
 
     <properties>

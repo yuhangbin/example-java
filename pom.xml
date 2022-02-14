@@ -14,6 +14,8 @@
         <module>java-native-server</module>
         <module>java-example</module>
         <module>maven</module>
+        <module>i18n-maven-plugin</module>
+        <module>cache</module>
     </modules>
 
     <properties>
@@ -26,6 +28,7 @@
         <netty-all.version>4.1.65.Final</netty-all.version>
         <junit-jupiter-api.version>5.8.0-M1</junit-jupiter-api.version>
         <protobuf.version>3.19.3</protobuf.version>
+        <caffeine.version>3.0.5</caffeine.version>
     </properties>
 
     <dependencies>
@@ -65,6 +68,11 @@
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${protobuf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
         </dependency>
     </dependencies>
 </project>

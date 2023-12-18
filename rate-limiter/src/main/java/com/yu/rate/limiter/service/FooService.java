@@ -14,6 +14,7 @@ public class FooService {
 	public static final String FALLBACK = "fallback";
 
 	public String foo() {
+		// https://www.baeldung.com/java-sentinel-intro
 		try (Entry entry = SphU.entry(SentinelAutoConfiguration.RESOURCE)){
 			return "foo";
 		} catch (BlockException e) {

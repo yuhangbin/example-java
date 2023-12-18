@@ -17,6 +17,7 @@
         <module>i18n-maven-plugin</module>
         <module>cache</module>
         <module>rate-limiter</module>
+        <module>apache-kafka</module>
     </modules>
 
     <properties>
@@ -31,6 +32,7 @@
         <protobuf.version>3.19.3</protobuf.version>
         <caffeine.version>3.0.5</caffeine.version>
         <sentinel.version>1.8.0</sentinel.version>
+        <kafka.version>3.5.1</kafka.version>
     </properties>
 
     <dependencyManagement>
@@ -81,6 +83,11 @@
                 <groupId>com.alibaba.csp</groupId>
                 <artifactId>sentinel-core</artifactId>
                 <version>${sentinel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

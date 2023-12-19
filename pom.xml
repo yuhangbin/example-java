@@ -18,6 +18,11 @@
         <module>cache</module>
         <module>rate-limiter</module>
         <module>apache-kafka</module>
+        <module>shading-db</module>
+        <module>jdbc</module>
+        <module>zookeeper</module>
+        <module>rocketmq</module>
+        <module>mongodb</module>
     </modules>
 
     <properties>

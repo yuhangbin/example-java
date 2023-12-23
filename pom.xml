@@ -24,6 +24,7 @@
         <module>rocketmq</module>
         <module>mongodb</module>
         <module>logging</module>
+        <module>jvm</module>
     </modules>
 
     <properties>

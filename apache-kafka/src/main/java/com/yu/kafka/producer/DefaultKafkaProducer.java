@@ -21,7 +21,6 @@ public class DefaultKafkaProducer<K,V> {
 	}
 
 	public Future<RecordMetadata> doAsync(KafkaProducer<K,V> producer, String topicName, K key, V value) {
-
 		return null;
 	}
 }

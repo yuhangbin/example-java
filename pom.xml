@@ -25,6 +25,7 @@
         <module>mongodb</module>
         <module>logging</module>
         <module>jvm</module>
+        <module>netty</module>
     </modules>
 
     <properties>
